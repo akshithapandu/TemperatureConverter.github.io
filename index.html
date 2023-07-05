@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+  body {
+    width: 100%;
+    height: 100vh;
+    background: url('blue.jpg');
+    background-size: cover;
+    font-family: sans-serif;
+  }
+
+  h1 {
+    color: black;
+    text-align: center;
+    font-weight: bold;
+  }
+
+  .container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+  }
+
+  .box {
+    background-color: rgba(255, 255, 255, 0.8);
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+    padding: 20px;
+    text-align: center;
+    width: 50%;
+  }
+
+  input[type="number"] {
+    width: calc(50% - 5px);
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    border: none;
+    box-shadow: inset 0px -2px rgba(0,0,0,0.25);
+    font-size: 16px;
+  }
+
+  select {
+    width: calc(50% - 5px);
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    border: none;
+    box-shadow: inset 0px -2px rgba(0,0,0,0.25);
+    font-size: 16px;
+  }
+
+  p {
+    margin-top: 10px;
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+<div class="box">
+<h1>Temperature Converter</h1>
+
+<div style="display:flex; flex-direction: column; align-items: center;">
+<input id="degrees" type="number" placeholder="Degrees" oninput="convertTemperature()" style="margin-bottom: 10px;">
+
+<select id="unit" onchange="convertTemperature()">
+<option value="celsius">Celsius</option>
+<option value="fahrenheit">Fahrenheit</option>
+</select>
+</div>
+
+<p id="convertedDegreesText" style="display:none; margin-top: 20px;">The temperature in <span id="convertedUnit"></span> is:</p>
+
+<input id="convertedDegrees" type="number" placeholder="" disabled style="display:none;">
+</div>
+</div>
+
+<script>
+function convertTemperature() {
+  var degrees = document.getElementById("degrees").value;
+
+  if (document.getElementById("unit").value == "celsius") {
+    var convertedDegrees = (parseFloat(degrees) * (9/5)) + 32;
+    document.getElementById("convertedUnit").innerHTML = "Fahrenheit";
+  } else if (document.getElementById("unit").value == "fahrenheit") {
+    var convertedDegrees = (parseFloat(degrees) - 32) * (5/9);
+    document.getElementById("convertedUnit").innerHTML = "Celsius";
+  }
+
+  if (!isNaN(convertedDegrees)) {
+    document.getElementById("convertedDegrees").value = convertedDegrees.toFixed(2);
+  } else {
+    document.getElementById("convertedDegrees").value = "";
+  }
+
+  document.getElementById("convertedDegreesText").style.display = "block";
+  document.getElementById("convertedDegrees").style.display = "block";
+}
+</script>
+
+</body>
+</html>
